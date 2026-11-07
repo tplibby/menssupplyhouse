@@ -1,0 +1,11 @@
+---
+interface Props { day: number; date?: string }
+const { day, date } = Astro.props;
+---
+<li id={`day-${day}`} class="scroll-mt-36 grid gap-4 md:grid-cols-[9rem_minmax(0,1fr)]">
+  <div class="flex items-baseline gap-3 md:block">
+    <p class="display text-5xl">Day {day}</p>
+    {date && <p class="text-xs text-muted md:mt-1">{date}</p>}
+  </div>
+  <div class="grid gap-3 text-[17px] leading-relaxed"><slot /></div>
+</li>

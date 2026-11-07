@@ -1,0 +1,42 @@
+@import "@fontsource/special-gothic-condensed-one/400.css";
+@import "@fontsource-variable/geist/wght.css";
+@import "tailwindcss";
+
+/* Direction v3: docs/direction-v3.md. Stone ground, olive panels, brick accent. */
+@theme {
+  --color-stone: #e4e2db;
+  --color-paper: #efede7;
+  --color-line: #cfccc3;
+  --color-ink: #1c1c1a;
+  --color-muted: #5f5e58;   /* 5.6:1 on stone */
+  --color-olive: #2e3a2c;
+  --color-olive-2: #3d4a3a;
+  --color-brick: #b23a2b;   /* 4.9:1 on stone */
+  --color-night: #1f201d;
+
+  --font-display: "Special Gothic Condensed One", "Arial Narrow", sans-serif;
+  --font-sans: "Geist Variable", "Helvetica Neue", Arial, sans-serif;
+
+  --radius-tile: 14px;
+}
+
+@layer base {
+  html { background: var(--color-stone); color: var(--color-ink); }
+  body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 3px solid var(--color-brick); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+}
+
+@layer components {
+  .display { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; line-height: .95; letter-spacing: .005em; text-wrap: balance; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  .pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px;
+    border-radius: 999px; padding: 0 1.25rem; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    transition: background-color .15s, color .15s;
+  }
+  .ph {
+    background: repeating-linear-gradient(-45deg, #d8d5cc 0 10px, #d1cec4 10px 20px);
+    color: var(--color-muted);
+  }
+}

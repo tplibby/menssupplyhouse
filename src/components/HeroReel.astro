@@ -1,0 +1,63 @@
+---
+// Rotating hero: muted looping clips with poster stills, thumbnail switcher and a pause button.
+// Reduced-motion users get the still only. Clips are AI brand atmosphere, never product proof.
+interface Slide { poster: string; mp4?: string; webm?: string; alt: string }
+interface Props { slides: Slide[]; class?: string }
+const { slides, class: cls = '' } = Astro.props;
+---
+<div class={`hero-reel relative overflow-hidden bg-line ${cls}`} data-reel>
+  {slides.map((s, i) => (
+    <div class={`absolute inset-0 transition-opacity duration-700 ${i === 0 ? 'opacity-100' : 'opacity-0'}`} data-slide={i} aria-hidden={i === 0 ? undefined : 'true'}>
+      <img src={s.poster} alt={s.alt} class="absolute inset-0 h-full w-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
+      {(s.mp4 || s.webm) && (
+        <video class="absolute inset-0 h-full w-full object-cover motion-reduce:hidden" muted loop playsinline preload={i === 0 ? 'auto' : 'none'} poster={s.poster} aria-hidden="true">
+          {s.webm && <source src={s.webm} type="video/webm" />}
+          {s.mp4 && <source src={s.mp4} type="video/mp4" />}
+        </video>
+      )}
+    </div>
+  ))}
+  {slides.length > 1 && (
+    <div class="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-[12px] bg-night/70 p-1.5 backdrop-blur">
+      {slides.map((s, i) => (
+        <button type="button" data-go={i} aria-label={`Show scene ${i + 1}`} aria-pressed={i === 0 ? 'true' : 'false'}
+          class="h-11 w-14 overflow-hidden rounded-[8px] opacity-60 ring-paper transition aria-pressed:opacity-100 aria-pressed:ring-2">
+          <img src={s.poster} alt="" class="h-full w-full object-cover" loading="lazy" />
+        </button>
+      ))}
+      <button type="button" data-pause aria-label="Pause" class="grid h-11 w-11 place-items-center text-paper">
+        <svg data-icon-pause viewBox="0 0 16 16" class="h-4 w-4" fill="currentColor"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>
+        <svg data-icon-play viewBox="0 0 16 16" class="hidden h-4 w-4" fill="currentColor"><path d="M4 2v12l10-6z"/></svg>
+      </button>
+    </div>
+  )}
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-reel]').forEach((reel) => {
+    const slides = [...reel.querySelectorAll<HTMLElement>('[data-slide]')];
+    const thumbs = [...reel.querySelectorAll<HTMLButtonElement>('[data-go]')];
+    const pauseBtn = reel.querySelector<HTMLButtonElement>('[data-pause]');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0, paused = reduce, timer: number | undefined;
+    const vid = (i: number) => slides[i]?.querySelector('video');
+    const show = (i: number) => {
+      vid(cur)?.pause();
+      slides.forEach((s, n) => { s.classList.toggle('opacity-100', n === i); s.classList.toggle('opacity-0', n !== i); s.toggleAttribute('aria-hidden', n !== i); });
+      thumbs.forEach((t, n) => t.setAttribute('aria-pressed', String(n === i)));
+      cur = i;
+      const v = vid(i); if (v && !paused) { v.preload = 'auto'; v.currentTime = 0; v.play().catch(() => {}); }
+    };
+    const schedule = () => { clearInterval(timer); if (!paused && slides.length > 1) timer = window.setInterval(() => show((cur + 1) % slides.length), 7000); };
+    thumbs.forEach((t, n) => t.addEventListener('click', () => { show(n); schedule(); }));
+    pauseBtn?.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
+      pauseBtn.querySelector('[data-icon-pause]')?.classList.toggle('hidden', paused);
+      pauseBtn.querySelector('[data-icon-play]')?.classList.toggle('hidden', !paused);
+      const v = vid(cur); if (v) paused ? v.pause() : v.play().catch(() => {});
+      schedule();
+    });
+    if (!paused) vid(0)?.play().catch(() => {});
+    schedule();
+  });
+</script>

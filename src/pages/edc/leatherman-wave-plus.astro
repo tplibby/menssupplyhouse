@@ -1,0 +1,39 @@
+---
+// Sample review for layout. Copy is placeholder in the brand voice. Replace with real test notes.
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import WearEntry from '../../components/WearEntry.astro';
+import RealPhoto from '../../components/RealPhoto.astro';
+import YouTube from '../../components/YouTube.astro';
+const entries = [{ day: 1 }, { day: 19 }, { day: 41 }, { day: 94 }];
+---
+<ReviewLayout
+  sample id="EDC-001" category="edc" name="Leatherman Wave+" verdict="KEEP"
+  callLine="Buy it if you want one tool on your belt that does most jobs. Skip it if pocket weight bugs you."
+  days={94} bought="[DATE]" paid="$XX [VERIFY]"
+  buy={{ href: '/go/leatherman-wave-plus/', retailer: 'Amazon' }}
+  heroPhoto="Wave+ on your bench at day 94, overhead"
+  entries={entries}
+  description="Leatherman Wave+ review after 94 days of daily carry. The call: KEEP."
+  specs={[['Tools', '18 [VERIFY]'], ['Weight', '8.5 oz [VERIFY]'], ['Closed length', '4 in [VERIFY]'], ['Blades', '420HC [VERIFY]'], ['Warranty', '25 years [VERIFY]']]}
+  stillWorks={['Both outside blades open one-handed.', 'Wire cutters still bite clean. [SAMPLE]']}
+  failed={['Pivots loosened by day 94. Fixable with a T8 driver. [SAMPLE]']}
+>
+  <Fragment slot="log">
+    <WearEntry day={1} date="[DATE]">
+      <RealPhoto label="Day 1, Wave+ open, overhead" class="aspect-[4/3]" />
+      <p>Out of the box. Stiff. The outside blades need a firm thumb. [SAMPLE]</p>
+    </WearEntry>
+    <WearEntry day={19} date="[DATE]">
+      <RealPhoto label="Day 19, pliers loosened" class="aspect-[4/3]" />
+      <p>Pliers loosened up. Easier on the hand now. [SAMPLE]</p>
+    </WearEntry>
+    <WearEntry day={41} date="[DATE]">
+      <YouTube id="VIDEO_ID" title="Wave+ at day 41" />
+      <p>Finish is worn off the handle edges. Nothing functional. [SAMPLE]</p>
+    </WearEntry>
+    <WearEntry day={94} date="[DATE]">
+      <RealPhoto label="Day 94, pivot screw with T8 driver" class="aspect-[4/3]" />
+      <p>Pivots had a little play. Tightened in a minute. Still on my belt. [SAMPLE]</p>
+    </WearEntry>
+  </Fragment>
+</ReviewLayout>

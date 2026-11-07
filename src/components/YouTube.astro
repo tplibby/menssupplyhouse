@@ -1,0 +1,25 @@
+---
+interface Props { id: string; title: string }
+const { id, title } = Astro.props;
+---
+<div class="yt relative aspect-video overflow-hidden rounded-[14px] bg-night" data-id={id} data-title={title}>
+  <button type="button" class="absolute inset-0 grid place-items-center text-paper" aria-label={`Play video: ${title}`}>
+    <span class="flex items-center gap-3">
+      <span class="grid h-14 w-14 place-items-center rounded-full bg-paper text-ink" aria-hidden="true"><svg viewBox="0 0 24 24" class="ml-0.5 h-6 w-6" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      <span class="display max-w-[14rem] text-left text-2xl">{title}</span>
+    </span>
+  </button>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('.yt').forEach((el) => {
+    el.querySelector('button')?.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${el.dataset.id}?autoplay=1`;
+      f.title = el.dataset.title ?? '';
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      f.className = 'absolute inset-0 h-full w-full';
+      el.replaceChildren(f);
+    });
+  });
+</script>

@@ -1,0 +1,94 @@
+---
+// Review page as a test log: title + call + buy first, then the wear clock, inventory check, parts list.
+import Base from './Base.astro';
+import CounterCall from '../components/CounterCall.astro';
+import WearClock from '../components/WearClock.astro';
+import RealPhoto from '../components/RealPhoto.astro';
+import { catBySlug, items, itemHref, type Verdict } from '../data/site';
+
+interface Props {
+  id: string; category: string; name: string; verdict: Verdict; callLine: string;
+  days: number; bought: string; paid: string;
+  buy: { href: string; retailer: string };
+  heroPhoto: string;
+  entries: { day: number }[];
+  specs: [string, string][];
+  stillWorks: string[]; failed: string[];
+  description: string; sample?: boolean;
+}
+const p = Astro.props;
+const cat = catBySlug(p.category);
+const sameBin = items.filter((i) => i.category === p.category && i.id !== p.id);
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const rating = { KEEP: 5, DEPENDS: 3, RETURN: 1 }[p.verdict];
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Product', name: p.name,
+  review: { '@type': 'Review', author: { '@type': 'Organization', name: "Men's Supply House" }, reviewBody: p.callLine,
+    reviewRating: { '@type': 'Rating', ratingValue: rating, bestRating: 5, worstRating: 1 }, url },
+};
+---
+<Base title={`${p.name} review: ${p.verdict}`} description={p.description}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  {p.sample && <p class="bg-brick px-4 py-2 text-center text-xs font-semibold tracking-[.08em] text-paper">SAMPLE COPY FOR LAYOUT. NOT A REAL TEST.</p>}
+
+  <section class="mx-auto max-w-7xl px-4 pt-6">
+    <nav aria-label="Breadcrumb"><a href={`/${cat.slug}/`} class="eyebrow inline-flex min-h-11 items-center text-brick hover:underline">{cat.name}</a></nav>
+    <div class="grid gap-6 lg:grid-cols-[7fr_5fr] lg:items-stretch">
+      <RealPhoto label={p.heroPhoto} class="order-2 aspect-[4/3] lg:order-1 lg:aspect-auto lg:min-h-[460px]" />
+      <!-- Call card: first screen on phones -->
+      <div class="order-1 grid content-between gap-6 rounded-[14px] bg-olive p-6 text-paper sm:p-8 lg:order-2">
+        <div class="grid gap-4">
+          <p class="eyebrow text-paper/70">{p.days} days tested &middot; Item {p.id}</p>
+          <h1 class="display text-[56px] sm:text-[72px]">{p.name}</h1>
+          <div class="flex items-center gap-3"><span class="eyebrow text-paper/70">The call</span><CounterCall verdict={p.verdict} size="lg" onDark /></div>
+          <p class="text-[18px] leading-snug">{p.callLine}</p>
+        </div>
+        <div class="grid gap-3">
+          <a href={p.buy.href} rel="sponsored nofollow" class="pill bg-paper text-ink hover:bg-night hover:text-paper">Check price at {p.buy.retailer} <span aria-hidden="true">&rarr;</span></a>
+          <p class="text-[13px] text-paper/70">I bought this myself ({p.paid}, {p.bought}). Retailer links may earn a commission. <a href="/disclosure/" class="underline">Disclosure</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-4xl px-4">
+    <WearClock entries={p.entries} days={p.days}><slot name="log" /></WearClock>
+
+    <section aria-labelledby="check-h" class="mt-16 grid gap-6 rounded-[14px] bg-paper p-6 sm:grid-cols-2 sm:p-8">
+      <h2 id="check-h" class="display text-4xl sm:col-span-2">At day {p.days}</h2>
+      <div>
+        <p class="eyebrow text-olive">Still works</p>
+        <ul class="mt-2 grid gap-2 text-[16px]">{p.stillWorks.map((s) => <li class="border-t border-line pt-2">{s}</li>)}</ul>
+      </div>
+      <div>
+        <p class="eyebrow text-brick">Failed</p>
+        <ul class="mt-2 grid gap-2 text-[16px]">{p.failed.map((s) => <li class="border-t border-line pt-2">{s}</li>)}</ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="specs-h" class="mt-12">
+      <h2 id="specs-h" class="display text-4xl">Specs</h2>
+      <table class="mt-4 w-full text-[15px]"><tbody>
+        {p.specs.map(([k, v]) => <tr class="border-b border-line"><th scope="row" class="py-3 pr-4 text-left font-normal text-muted">{k}</th><td class="py-3 font-medium">{v}</td></tr>)}
+      </tbody></table>
+    </section>
+
+    <slot />
+
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4 rounded-[14px] bg-night p-6 text-paper">
+      <div class="flex items-center gap-3"><CounterCall verdict={p.verdict} size="lg" onDark /><span class="display text-3xl">{p.name}</span></div>
+      <a href={p.buy.href} rel="sponsored nofollow" class="pill bg-paper text-ink hover:bg-stone">Check price at {p.buy.retailer} <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+
+  {sameBin.length > 0 && (
+    <section aria-labelledby="more-h" class="mx-auto mt-16 max-w-7xl px-4">
+      <h2 id="more-h" class="display text-4xl">More {cat.name.toLowerCase()}</h2>
+      <ul class="mt-4 divide-y divide-line border-y border-line">
+        {sameBin.map((i) => { const href = itemHref(i); const Tag = href ? 'a' : 'div'; return (
+          <li><Tag href={href} class="flex min-h-14 items-center justify-between gap-4 py-3"><span class="display text-3xl">{i.name}</span><span class="flex items-center gap-3 text-sm text-muted">{i.days} days <CounterCall verdict={i.verdict} /></span></Tag></li>
+        ); })}
+      </ul>
+    </section>
+  )}
+</Base>

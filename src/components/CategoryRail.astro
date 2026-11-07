@@ -1,0 +1,22 @@
+---
+// Image tiles: label top-left, arrow notched into the bottom-right corner. Swipes on phones.
+import { categories } from '../data/site';
+interface Props { current?: string }
+const { current } = Astro.props;
+---
+<ul class="grid auto-cols-[44%] grid-flow-col gap-3 overflow-x-auto snap-x snap-mandatory pb-2 sm:auto-cols-[28%] lg:grid-flow-row lg:grid-cols-7 lg:overflow-visible">
+  {categories.map((c) => (
+    <li class="snap-start">
+      <a href={`/${c.slug}/`} aria-current={current === c.slug ? 'page' : undefined}
+        class="group relative block aspect-square overflow-hidden rounded-[14px] bg-line aria-[current=page]:ring-3 aria-[current=page]:ring-brick">
+        <img src={c.image} alt="" loading="lazy" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        <span class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-night/55 to-transparent" aria-hidden="true"></span>
+        <span class="display absolute left-3 top-2.5 text-[26px] text-paper">{c.tile}</span>
+        <span class="absolute bottom-0 right-0 grid h-11 w-11 place-items-center rounded-tl-[14px] bg-stone text-ink" aria-hidden="true">
+          <svg viewBox="0 0 16 16" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </span>
+        <span class="sr-only">{c.name}</span>
+      </a>
+    </li>
+  ))}
+</ul>

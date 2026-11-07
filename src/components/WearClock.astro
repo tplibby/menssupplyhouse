@@ -1,0 +1,24 @@
+---
+interface Props { entries: { day: number }[]; days: number }
+const { entries, days } = Astro.props;
+const max = Math.max(90, days);
+const pct = (d: number) => `${Math.min(100, (d / max) * 100)}%`;
+---
+<section aria-labelledby="clock-h" class="mt-14">
+  <p class="eyebrow text-brick">The test log</p>
+  <div class="mt-1 flex items-baseline justify-between gap-4">
+    <h2 id="clock-h" class="display text-5xl">Wear clock</h2>
+    <p class="text-sm text-muted">{days} days</p>
+  </div>
+  <div class="relative mt-6 h-10" aria-hidden="true">
+    <div class="absolute inset-x-0 top-4 h-1.5 rounded-full bg-line"></div>
+    <div class="absolute left-0 top-4 h-1.5 rounded-full bg-olive" style={`width:${pct(days)}`}></div>
+    {entries.map((e) => <span class="absolute top-[11px] h-4 w-4 -translate-x-1/2 rounded-full border-[3px] border-stone bg-olive" style={`left:${pct(e.day)}`}></span>)}
+    <span class="absolute left-0 top-7 text-[11px] text-muted">Day 0</span>
+    <span class="absolute right-0 top-7 text-[11px] text-muted">Day 90+</span>
+  </div>
+  <nav aria-label="Jump to a day" class="mt-4 flex gap-2 overflow-x-auto [scrollbar-width:none]">
+    {entries.map((e) => <a href={`#day-${e.day}`} class="pill bg-paper ring-1 ring-line hover:bg-olive hover:text-paper">Day {e.day}</a>)}
+  </nav>
+  <ol class="mt-8 grid gap-12"><slot /></ol>
+</section>

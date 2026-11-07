@@ -1,0 +1,8 @@
+---
+// Slot for the reviewer's own photo. Never filled with AI imagery.
+interface Props { label: string; class?: string }
+const { label, class: cls = '' } = Astro.props;
+---
+<div class={`ph grid place-items-center rounded-[14px] p-4 text-center text-xs ${cls}`} role="img" aria-label={`Real photo to come: ${label}`}>
+  [REAL PHOTO: {label}]
+</div>

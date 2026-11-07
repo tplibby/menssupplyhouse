@@ -1,0 +1,9 @@
+---
+// Higgsfield scene (never product proof). `draft` adds a visible tag until finals replace it.
+interface Props { src: string; alt: string; class?: string; eager?: boolean; draft?: boolean }
+const { src, alt, class: cls = '', eager = false, draft = false } = Astro.props;
+---
+<div class={`relative overflow-hidden bg-line ${cls}`}>
+  <img src={src} alt={alt} class="h-full w-full object-cover" loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'} />
+  {draft && <span class="absolute right-2 top-2 rounded-full bg-night/75 px-2 py-0.5 text-[9px] font-semibold tracking-[.1em] text-paper">DRAFT</span>}
+</div>

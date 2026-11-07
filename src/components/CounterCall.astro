@@ -1,0 +1,9 @@
+---
+import { verdictStyle, type Verdict } from '../data/site';
+interface Props { verdict: Verdict; size?: 'sm' | 'lg'; onDark?: boolean }
+const { verdict, size = 'sm', onDark = false } = Astro.props;
+// On olive/night panels KEEP flips to a light pill so it stays visible.
+const pill = onDark && verdict !== 'RETURN' ? 'bg-paper text-olive' : verdictStyle[verdict].pill;
+const sz = size === 'lg' ? 'text-[15px] px-5 py-2.5' : 'text-[11px] px-3 py-1';
+---
+<span class={`inline-block rounded-full font-semibold tracking-[.1em] ${pill} ${sz}`}><span class="sr-only">Counter call: </span>{verdict}</span>

@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import CounterCall from '../components/CounterCall.astro';
+import { verdictStyle, type Verdict } from '../data/site';
+const rules = [
+  ['Paid for, not sent.', 'I buy the product. If a brand ever sends something, the review says so at the top.'],
+  ['Used until it shows.', 'No first-impression verdicts. Every page says how many days it has been tested.'],
+  ['One call.', 'Every review ends in KEEP, RETURN or DEPENDS. DEPENDS always says what it depends on.'],
+  ['Show the wear.', 'Scuffs, loose pivots, cracked soles. If it failed, you see the photo.'],
+];
+const verdicts: Verdict[] = ['KEEP', 'RETURN', 'DEPENDS'];
+---
+<Base title="How we test" description="How Men's Supply House tests gear: bought with my own money, used until it shows wear, judged straight.">
+  <section class="mx-auto max-w-7xl px-4 pt-4">
+    <div class="rounded-[14px] bg-olive px-6 py-14 text-paper sm:px-12">
+      <p class="eyebrow text-paper/70">How we test</p>
+      <h1 class="display mt-3 max-w-3xl text-[64px] sm:text-[96px]">Same rules for every product.</h1>
+    </div>
+  </section>
+  <div class="mx-auto max-w-4xl px-4">
+    <ol class="mt-14 divide-y divide-line border-y border-line">
+      {rules.map(([t, d]) => (
+        <li class="grid gap-2 py-6 sm:grid-cols-[16rem_1fr]"><h2 class="display text-4xl">{t}</h2><p class="text-[17px] text-ink/85">{d}</p></li>
+      ))}
+    </ol>
+    <section aria-labelledby="clock-h" class="mt-14">
+      <h2 id="clock-h" class="display text-5xl">The wear clock</h2>
+      <p class="mt-3 max-w-2xl text-[17px]">Every review runs on a clock from day 0. I log what changed and when, with a real photo. Most products stay on the clock past day 90. When something breaks, the entry stays.</p>
+    </section>
+    <section aria-labelledby="calls-h" class="mt-14">
+      <h2 id="calls-h" class="display text-5xl">The three calls</h2>
+      <dl class="mt-6 grid gap-4 sm:grid-cols-3">
+        {verdicts.map((v) => <div class="rounded-[14px] bg-paper p-6"><dt><CounterCall verdict={v} size="lg" /></dt><dd class="mt-4 text-[16px]">{verdictStyle[v].line}</dd></div>)}
+      </dl>
+    </section>
+  </div>
+</Base>

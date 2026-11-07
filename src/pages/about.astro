@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import RealPhoto from '../components/RealPhoto.astro';
+---
+<Base title="About">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 pt-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+    <div>
+      <p class="eyebrow text-brick">About</p>
+      <h1 class="display mt-2 text-[64px] sm:text-[88px]">The counter</h1>
+      <div class="mt-6 grid gap-4 text-[18px] leading-relaxed">
+        <p>A supply house is where people who fix things go. No showroom. No pitch. You tell the guy at the counter what the job is, and he tells you which one lasts, because he's seen what comes back.</p>
+        <p><strong>This site is that counter</strong>, for the gear you carry, wear and use every day.</p>
+        <p>I buy every product with my own money. I use it until it shows wear. Then I make a call: keep it, return it, or it depends. You'll see my hands and the gear. That's it.</p>
+      </div>
+    </div>
+    <RealPhoto label="your bench, overhead" class="aspect-[4/5]" />
+  </div>
+</Base>

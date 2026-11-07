@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroReel from '../components/HeroReel.astro';
+import CategoryRail from '../components/CategoryRail.astro';
+import CounterCall from '../components/CounterCall.astro';
+import { items, itemHref, catBySlug, heroSlides } from '../data/site';
+const latest = items.slice(0, 4);
+---
+<Base title="Home">
+  <!-- Split hero -->
+  <section class="mx-auto max-w-7xl px-4 pt-4">
+    <div class="grid overflow-hidden rounded-[14px] lg:grid-cols-[5fr_7fr]">
+      <HeroReel slides={heroSlides} class="aspect-[4/3] lg:order-2 lg:aspect-auto lg:min-h-[520px]" />
+      <div class="grid content-center gap-5 bg-olive px-6 py-10 text-paper sm:px-10 lg:order-1">
+        <p class="eyebrow text-paper/70">Hands-on gear reviews</p>
+        <h1 class="display text-[64px] sm:text-[84px]">Bought. Used. Judged.</h1>
+        <p class="max-w-[36ch] text-[17px] text-paper/85">I buy it with my own money and use it until it shows wear. Then I make the call: keep it, return it, or it depends.</p>
+        <a href="#latest" class="pill justify-self-start bg-night text-paper hover:bg-paper hover:text-ink">See the latest tests</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category image rail -->
+  <section aria-labelledby="cats-h" class="mx-auto mt-14 max-w-7xl px-4">
+    <h2 id="cats-h" class="sr-only">Categories</h2>
+    <CategoryRail />
+  </section>
+
+  <!-- Latest calls: hover/focus swaps the photo -->
+  <section id="latest" aria-labelledby="latest-h" class="mt-16 bg-paper py-14 sm:rounded-[14px] sm:mx-4 lg:mx-auto lg:max-w-7xl">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-8 lg:grid-cols-[5fr_6fr]">
+      <div class="relative hidden aspect-[4/5] lg:block" aria-hidden="true">
+        {latest.map((i, n) => (
+          <div data-swap={i.id} class={`ph absolute inset-0 grid place-items-center rounded-[14px] p-6 text-center text-xs transition-opacity duration-300 ${n === 0 ? 'opacity-100' : 'opacity-0'}`}>[REAL PHOTO: {i.name}, day {i.days}]</div>
+        ))}
+      </div>
+      <div>
+        <p class="eyebrow text-brick">Latest calls</p>
+        <h2 id="latest-h" class="sr-only">Latest reviews</h2>
+        <ul class="mt-2 divide-y divide-line">
+          {latest.map((i, n) => {
+            const href = itemHref(i); const Tag = href ? 'a' : 'div';
+            return (
+              <li>
+                <Tag href={href} data-item={i.id} class={`group grid min-h-16 grid-cols-[3.5rem_1fr_auto] items-center gap-4 py-4 lg:grid-cols-[1fr_auto] ${n === 0 ? 'is-on' : ''}`} tabindex={href ? undefined : 0}>
+                  <span class="ph aspect-square rounded-[10px] lg:hidden" aria-hidden="true"></span>
+                  <span>
+                    <span class="eyebrow block text-muted">{catBySlug(i.category).name} &middot; {i.days} days{i.sample && ' · sample'}</span>
+                    <span class="display mt-1 block text-[34px] text-ink/45 transition-colors group-hover:text-ink group-focus:text-ink group-[.is-on]:text-ink sm:text-[44px]">{i.name}</span>
+                  </span>
+                  <CounterCall verdict={i.verdict} />
+                </Tag>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  </section>
+  <script>
+    const rows = document.querySelectorAll<HTMLElement>('[data-item]');
+    const show = (id: string) => {
+      document.querySelectorAll<HTMLElement>('[data-swap]').forEach((p) => p.classList.toggle('opacity-0', p.dataset.swap !== id));
+      document.querySelectorAll<HTMLElement>('[data-swap]').forEach((p) => p.classList.toggle('opacity-100', p.dataset.swap === id));
+      rows.forEach((r) => r.classList.toggle('is-on', r.dataset.item === id));
+    };
+    rows.forEach((r) => { r.addEventListener('mouseenter', () => show(r.dataset.item!)); r.addEventListener('focus', () => show(r.dataset.item!)); });
+  </script>
+
+  <!-- Story band -->
+  <section class="mx-auto mt-16 max-w-7xl px-4">
+    <div class="grid gap-8 rounded-[14px] bg-night px-6 py-14 text-paper sm:px-12 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+      <div>
+        <p class="eyebrow text-paper/60">The counter</p>
+        <h2 class="display mt-3 text-[56px] sm:text-[72px]">Paid for, not sent.</h2>
+      </div>
+      <div class="grid gap-5">
+        <p class="text-[17px] text-paper/80">A supply house counter tells you which one lasts, because it sees what comes back. That's the job here. Every review runs on a wear clock and ends in one call.</p>
+        <a href="/how-we-test/" class="pill justify-self-start ring-1 ring-paper/40 hover:bg-paper hover:text-ink">How we test</a>
+      </div>
+    </div>
+  </section>
+</Base>
