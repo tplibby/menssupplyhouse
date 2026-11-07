@@ -1,0 +1,28 @@
+---
+import PostImage from './PostImage.astro';
+import { fmtDate, postHref, readMinutes, type Post } from '../data/blog';
+interface Props { post: Post; size?: 'feature' | 'row' }
+const { post, size = 'row' } = Astro.props;
+const d = post.data;
+---
+{size === 'feature' ? (
+  <a href={postHref(post)} class="group grid overflow-hidden rounded-[14px] bg-paper lg:grid-cols-[7fr_5fr]">
+    <PostImage post={post} eager class="aspect-[4/3] rounded-none lg:aspect-auto lg:min-h-[420px]" />
+    <div class="grid content-center gap-4 p-6 sm:p-10">
+      <p class="eyebrow text-brick">{d.kind}{d.sample && ' · sample'}</p>
+      <h2 class="display text-[44px] group-hover:text-brick sm:text-[56px]">{d.title}</h2>
+      <p class="text-[17px] text-ink/80">{d.description}</p>
+      <p class="text-sm text-muted">{fmtDate(d.date)} · {readMinutes(post)} min read</p>
+    </div>
+  </a>
+) : (
+  <a href={postHref(post)} class="group grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 py-5 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8">
+    <PostImage post={post} class="aspect-[4/3] text-[10px]" />
+    <div class="min-w-0">
+      <p class="eyebrow text-brick">{d.kind}{d.sample && ' · sample'}</p>
+      <h3 class="display mt-1 text-[28px] group-hover:text-brick sm:text-[36px]">{d.title}</h3>
+      <p class="mt-1 hidden text-ink/75 sm:block">{d.description}</p>
+      <p class="mt-1 text-sm text-muted">{fmtDate(d.date)} · {readMinutes(post)} min read</p>
+    </div>
+  </a>
+)}

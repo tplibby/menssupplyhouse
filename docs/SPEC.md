@@ -24,6 +24,9 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 - `/{category}/{slug}/`: review (sample: `/edc/leatherman-wave-plus/`). Review URLs skip the subcategory so they don't break if an item moves.
   The build fails if a review slug matches a subcategory slug in the same category.
 - Navigation: desktop category nav opens a dropdown of subcategories on hover/focus. Category and subcategory pages show a row of subcategory chips (the phone navigation).
+- `/field-notes/`: the blog (Field Notes). Posts are Markdown files in `src/content/field-notes/`, and the file name is the URL slug.
+  Front matter: title, description, date, kind (Guide | Comparison | Carry | Test update | How-to | Notes), optional image/imageAlt (YOUR photo),
+  photoNote (placeholder label), reviews (review URLs it mentions), featured, draft, sample. Schema: `src/content.config.ts`.
 - `/how-we-test/`, `/about/`, `/disclosure/`
 - `/go/{slug}/`: affiliate redirects (not built yet)
 

@@ -18,3 +18,12 @@ npm run build    # static site in dist/
 - `assets-src/`: full-size masters and raw video clips (not deployed).
 
 AI images are brand atmosphere only. Every image of a reviewed product is my own photo.
+
+## Writing a Field Note
+1. Copy any file in `src/content/field-notes/` and rename it. The file name becomes the URL, e.g. `best-work-pants.md` → `/field-notes/best-work-pants/`.
+2. Edit the top block (title, description, date, kind). `kind` is one of: Guide, Comparison, Carry, Test update, How-to, Notes.
+3. Add your photo under `public/images/notes/` and set `image: /images/notes/your-photo.jpg` plus `imageAlt`.
+   Without an image, a labelled placeholder shows (`photoNote`).
+4. List any reviews you mention under `reviews:` (e.g. `- /edc/leatherman-wave-plus/`) to show them as cards under the post.
+5. `featured: true` puts it at the top of `/field-notes/`. `draft: true` keeps it off the site. Remove `sample: true` on real posts.
+6. Push to `main`. It's live in about a minute.

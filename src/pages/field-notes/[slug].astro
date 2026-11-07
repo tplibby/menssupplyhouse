@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostImage from '../../components/PostImage.astro';
+import PostCard from '../../components/PostCard.astro';
+import CounterCall from '../../components/CounterCall.astro';
+import { render } from 'astro:content';
+import { getPosts, fmtDate, readMinutes, type Post } from '../../data/blog';
+import { items, catBySlug, itemHref } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props as { post: Post };
+const d = post.data;
+const { Content } = await render(post);
+const linked = d.reviews.map((href) => items.find((i) => itemHref(i) === href)).filter((i) => !!i);
+const more = (await getPosts()).filter((p) => p.id !== post.id).slice(0, 2);
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: d.title, description: d.description,
+  datePublished: d.date.toISOString(), dateModified: (d.updated ?? d.date).toISOString(),
+  author: { '@type': 'Organization', name: "Men's Supply House" }, mainEntityOfPage: url,
+  ...(d.image ? { image: new URL(d.image, Astro.site).toString() } : {}),
+};
+---
+<Base title={d.title} description={d.description}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  {d.sample && <p class="bg-brick px-4 py-2 text-center text-xs font-semibold tracking-[.08em] text-paper">SAMPLE POST FOR LAYOUT. NOT A REAL TEST.</p>}
+
+  <article>
+    <header class="mx-auto max-w-3xl px-4 pt-8">
+      <nav aria-label="Breadcrumb"><a href="/field-notes/" class="eyebrow inline-flex min-h-11 items-center text-brick hover:underline">Field Notes</a></nav>
+      <p class="eyebrow text-muted">{d.kind}</p>
+      <h1 class="display mt-2 text-[52px] sm:text-[76px]">{d.title}</h1>
+      <p class="mt-4 text-[19px] leading-snug text-ink/80">{d.description}</p>
+      <p class="mt-4 text-sm text-muted">{fmtDate(d.date)}{d.updated && ` · Updated ${fmtDate(d.updated)}`} · {readMinutes(post)} min read</p>
+    </header>
+    <div class="mx-auto mt-8 max-w-5xl px-4"><PostImage post={post} eager class="aspect-[16/9]" /></div>
+    <div class="note-body mx-auto mt-10 max-w-3xl px-4"><Content /></div>
+  </article>
+
+  {linked.length > 0 && (
+    <section aria-labelledby="rev-h" class="mx-auto mt-14 max-w-3xl px-4">
+      <h2 id="rev-h" class="display text-4xl">Reviews in this note</h2>
+      <ul class="mt-3 divide-y divide-line border-y border-line">
+        {linked.map((i) => (
+          <li><a href={itemHref(i)} class="flex min-h-14 items-center justify-between gap-4 py-3">
+            <span><span class="eyebrow block text-muted">{catBySlug(i.category).name} · {i.days} days</span><span class="display text-3xl">{i.name}</span></span>
+            <CounterCall verdict={i.verdict} />
+          </a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <p class="mx-auto mt-10 max-w-3xl px-4 text-sm text-muted">I buy what I write about. Retailer links may earn a commission. <a href="/disclosure/" class="underline">Disclosure</a></p>
+
+  {more.length > 0 && (
+    <section aria-labelledby="more-h" class="mx-auto mt-14 max-w-5xl px-4">
+      <h2 id="more-h" class="display text-4xl">More field notes</h2>
+      <ul class="mt-2 divide-y divide-line border-y border-line">{more.map((p) => <li><PostCard post={p} /></li>)}</ul>
+    </section>
+  )}
+</Base>

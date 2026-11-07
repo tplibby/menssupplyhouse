@@ -1,0 +1,11 @@
+---
+// A post's photo: the author's own image, or a labelled placeholder until it exists.
+import RealPhoto from './RealPhoto.astro';
+import type { Post } from '../data/blog';
+interface Props { post: Post; class?: string; eager?: boolean }
+const { post, class: cls = '', eager = false } = Astro.props;
+const { image, imageAlt, photoNote, title } = post.data;
+---
+{image
+  ? <img src={image} alt={imageAlt ?? ''} class={`w-full rounded-[14px] object-cover ${cls}`} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  : <RealPhoto label={photoNote ?? title} class={cls} />}

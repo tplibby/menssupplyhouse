@@ -9,7 +9,8 @@ const current = Astro.url.pathname.split('/')[1];
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2">
     <a href="/" class="display flex min-h-11 items-center text-[28px] sm:text-[32px]">Men&rsquo;s Supply House</a>
     <nav aria-label="Site" class="flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[.08em]">
-      <a href="/how-we-test/" class="flex min-h-11 items-center px-2 hover:text-brick">How we test</a>
+      <a href="/field-notes/" aria-current={current === 'field-notes' ? 'page' : undefined} class="flex min-h-11 items-center px-2 hover:text-brick aria-[current=page]:text-brick">Field Notes</a>
+      <a href="/how-we-test/" class="hidden min-h-11 items-center px-2 hover:text-brick sm:flex">How we test</a>
       <a href="/about/" class="hidden min-h-11 items-center px-2 hover:text-brick sm:flex">About</a>
     </nav>
   </div>

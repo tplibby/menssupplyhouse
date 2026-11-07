@@ -4,6 +4,9 @@ import HeroReel from '../components/HeroReel.astro';
 import CategoryRail from '../components/CategoryRail.astro';
 import CounterCall from '../components/CounterCall.astro';
 import { items, itemHref, catBySlug, heroSlides } from '../data/site';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../data/blog';
+const notes = (await getPosts()).slice(0, 3);
 const latest = items.slice(0, 4);
 ---
 <Base title="Home">
@@ -66,6 +69,17 @@ const latest = items.slice(0, 4);
     };
     rows.forEach((r) => { r.addEventListener('mouseenter', () => show(r.dataset.item!)); r.addEventListener('focus', () => show(r.dataset.item!)); });
   </script>
+
+  <!-- Field Notes -->
+  {notes.length > 0 && (
+    <section aria-labelledby="notes-h" class="mx-auto mt-16 max-w-5xl px-4">
+      <div class="flex items-end justify-between gap-4">
+        <div><p class="eyebrow text-brick">Field Notes</p><h2 id="notes-h" class="display mt-1 text-5xl">From the bench</h2></div>
+        <a href="/field-notes/" class="pill shrink-0 ring-1 ring-line bg-paper hover:bg-olive hover:text-paper">All notes</a>
+      </div>
+      <ul class="mt-4 divide-y divide-line border-y border-line">{notes.map((p) => <li><PostCard post={p} /></li>)}</ul>
+    </section>
+  )}
 
   <!-- Story band -->
   <section class="mx-auto mt-16 max-w-7xl px-4">
