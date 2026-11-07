@@ -4,10 +4,10 @@ import Base from './Base.astro';
 import CounterCall from '../components/CounterCall.astro';
 import WearClock from '../components/WearClock.astro';
 import RealPhoto from '../components/RealPhoto.astro';
-import { catBySlug, items, itemHref, type Verdict } from '../data/site';
+import { catBySlug, subOf, items, itemHref, type Verdict } from '../data/site';
 
 interface Props {
-  id: string; category: string; name: string; verdict: Verdict; callLine: string;
+  id: string; category: string; sub?: string; name: string; verdict: Verdict; callLine: string;
   days: number; bought: string; paid: string;
   buy: { href: string; retailer: string };
   heroPhoto: string;
@@ -18,6 +18,7 @@ interface Props {
 }
 const p = Astro.props;
 const cat = catBySlug(p.category);
+const sub = subOf(cat, p.sub);
 const sameBin = items.filter((i) => i.category === p.category && i.id !== p.id);
 const url = new URL(Astro.url.pathname, Astro.site).toString();
 const rating = { KEEP: 5, DEPENDS: 3, RETURN: 1 }[p.verdict];
@@ -32,7 +33,10 @@ const jsonLd = {
   {p.sample && <p class="bg-brick px-4 py-2 text-center text-xs font-semibold tracking-[.08em] text-paper">SAMPLE COPY FOR LAYOUT. NOT A REAL TEST.</p>}
 
   <section class="mx-auto max-w-7xl px-4 pt-6">
-    <nav aria-label="Breadcrumb"><a href={`/${cat.slug}/`} class="eyebrow inline-flex min-h-11 items-center text-brick hover:underline">{cat.name}</a></nav>
+    <nav aria-label="Breadcrumb" class="flex items-center gap-1 text-brick">
+      <a href={`/${cat.slug}/`} class="eyebrow inline-flex min-h-11 items-center hover:underline">{cat.name}</a>
+      {sub && <><span class="eyebrow" aria-hidden="true">&rsaquo;</span><a href={`/${cat.slug}/${sub.slug}/`} class="eyebrow inline-flex min-h-11 items-center hover:underline">{sub.name}</a></>}
+    </nav>
     <div class="grid gap-6 lg:grid-cols-[7fr_5fr] lg:items-stretch">
       <RealPhoto label={p.heroPhoto} class="order-2 aspect-[4/3] lg:order-1 lg:aspect-auto lg:min-h-[460px]" />
       <!-- Call card: first screen on phones -->

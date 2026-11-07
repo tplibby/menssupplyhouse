@@ -14,10 +14,25 @@ const current = Astro.url.pathname.split('/')[1];
     </nav>
   </div>
   <nav aria-label="Categories" class="border-t border-line">
-    <ul class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-2 [scrollbar-width:none] lg:justify-center">
+    <ul class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-2 [scrollbar-width:none] lg:justify-center lg:overflow-visible">
       {categories.map((c) => (
-        <li><a href={`/${c.slug}/`} aria-current={current === c.slug ? 'page' : undefined}
-          class="flex min-h-11 items-center whitespace-nowrap px-3 text-[12px] font-semibold uppercase tracking-[.08em] hover:text-brick aria-[current=page]:text-brick">{c.name}</a></li>
+        <li class="group relative">
+          <a href={`/${c.slug}/`} aria-current={current === c.slug ? 'page' : undefined}
+            class="flex min-h-11 items-center gap-1 whitespace-nowrap px-3 text-[12px] font-semibold uppercase tracking-[.08em] hover:text-brick aria-[current=page]:text-brick">
+            {c.name}
+            {c.subs.length > 0 && <svg viewBox="0 0 12 12" class="hidden h-3 w-3 opacity-60 transition-transform group-hover:rotate-180 lg:block" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg>}
+          </a>
+          {c.subs.length > 0 && (
+            <div class="absolute left-1/2 top-full z-40 hidden w-56 -translate-x-1/2 pt-1 lg:group-hover:block lg:group-focus-within:block">
+              <ul class="overflow-hidden rounded-[14px] border border-line bg-paper py-2 shadow-[0_12px_32px_-12px_rgba(31,32,29,.35)]">
+                <li><a href={`/${c.slug}/`} class="flex min-h-11 items-center px-4 text-[13px] font-semibold uppercase tracking-[.08em] text-brick hover:bg-stone">All {c.name}</a></li>
+                {c.subs.map((s) => (
+                  <li><a href={`/${c.slug}/${s.slug}/`} class="flex min-h-11 items-center px-4 text-[15px] hover:bg-stone">{s.name}</a></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </li>
       ))}
     </ul>
   </nav>

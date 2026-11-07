@@ -14,8 +14,16 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 
 ## Routes (current)
 - `/`: split hero (rotating stills, video-ready), category image rail, latest calls, story band
-- `/{category}/`: boots, workwear, edc, tools, gear, barware, books
-- `/{category}/{slug}/`: review (sample: `/edc/leatherman-wave-plus/`)
+- `/{category}/`: footwear, workwear, edc, tools, gear, barware, books
+- `/{category}/{sub}/`: subcategory pages (list in `src/data/site.ts`)
+  - footwear: boots, shoes
+  - workwear: pants, shirts, jackets
+  - edc: knives, flashlights, multi-tools, wallets, watches
+  - tools: hand-tools, power-tools, measuring, storage
+  - gear, barware, books: none yet
+- `/{category}/{slug}/`: review (sample: `/edc/leatherman-wave-plus/`). Review URLs skip the subcategory so they don't break if an item moves.
+  The build fails if a review slug matches a subcategory slug in the same category.
+- Navigation: desktop category nav opens a dropdown of subcategories on hover/focus. Category and subcategory pages show a row of subcategory chips (the phone navigation).
 - `/how-we-test/`, `/about/`, `/disclosure/`
 - `/go/{slug}/`: affiliate redirects (not built yet)
 
