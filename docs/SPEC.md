@@ -37,6 +37,11 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 - Tag unverified prices, specs and commission rates with `[VERIFY]`.
 - Voice: plain, verdict-first, short sentences.
 
+## Hosting
+Cloudflare Pages, connected to GitHub `tplibby/menssupplyhouse` (`main` auto-deploys).
+Build command `npm run build`, output `dist`, Node 22 (`.node-version`).
+Pre-launch: `PRELAUNCH = true` in `src/data/site.ts` adds `noindex` to every page. Flip it to false at launch.
+
 ## Open items
 - Content schema (Astro content collections) and real reviews.
 - `/go/` redirects, sitemap, RSS.

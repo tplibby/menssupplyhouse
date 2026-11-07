@@ -14,6 +14,9 @@ export interface Category {
 
 export interface Sub { slug: string; name: string }
 
+// Pre-launch: keeps search engines out while the site has sample content. Set to false at launch.
+export const PRELAUNCH = true;
+
 const IMG = '/images/brand/v4/web/';
 export const categories: Category[] = [
   { slug: 'footwear', code: 'FOOT', name: 'Footwear', tile: 'Footwear', notes: 'Soles, stitching, break-in, and how they feel at hour ten.', image: `${IMG}cat-boots.webp`,
