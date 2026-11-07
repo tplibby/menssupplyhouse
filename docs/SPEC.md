@@ -38,7 +38,8 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 - Voice: plain, verdict-first, short sentences.
 
 ## Hosting
-Cloudflare Pages, connected to GitHub `tplibby/menssupplyhouse` (`main` auto-deploys).
+Cloudflare Pages project `menssupplyhouse` (https://menssupplyhouse.pages.dev), created as a direct-upload project.
+Deploys run from GitHub Actions (`.github/workflows/deploy.yml`) on every push to `main`. Needs the repo secret `CLOUDFLARE_API_TOKEN`.
 Build command `npm run build`, output `dist`, Node 22 (`.node-version`).
 Pre-launch: `PRELAUNCH = true` in `src/data/site.ts` adds `noindex` to every page. Flip it to false at launch.
 
