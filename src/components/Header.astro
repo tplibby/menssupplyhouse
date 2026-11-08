@@ -6,13 +6,14 @@ const current = Astro.url.pathname.split('/')[1];
   <p class="mx-auto max-w-7xl px-4 py-2 text-center text-[11px] font-semibold uppercase tracking-[.12em]">Tested hands-on before every call</p>
 </div>
 <header class="sticky top-0 z-30 border-b border-line bg-stone/95 backdrop-blur">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2">
-    <a href="/" class="flex min-h-11 shrink-0 items-center gap-2.5 sm:gap-3" aria-label="Men's Supply House, home">
-      <img src="/images/logo/mark.png" alt="" width="44" height="44" class="h-9 w-9 sm:h-11 sm:w-11" />
-      <img src="/images/logo/wordmark-ink.png" alt="Men's Supply House" width="560" height="60" class="h-[17px] w-auto sm:h-[22px]" />
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 sm:py-3">
+    <a href="/" class="flex min-h-11 shrink-0 items-center gap-2.5 sm:gap-4" aria-label="Men's Supply House: Equipped for Excellence, home">
+      <img src="/images/logo/mark.png" alt="" width="48" height="48" class="h-8 w-8 max-[339px]:hidden min-[380px]:h-9 min-[380px]:w-9 sm:h-12 sm:w-12" />
+      <span class="hidden h-10 w-px bg-ink/30 sm:block" aria-hidden="true"></span>
+      <img src="/images/logo/lockup-compact-ink.png" alt="Men's Supply House: Equipped for Excellence" width="2204" height="327" class="h-[26px] w-auto min-[380px]:h-[30px] sm:h-[44px]" />
     </a>
     <nav aria-label="Site" class="flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[.08em]">
-      <a href="/field-notes/" aria-current={current === 'field-notes' ? 'page' : undefined} class="flex min-h-11 items-center px-2 hover:text-brick aria-[current=page]:text-brick">Field Notes</a>
+      <a href="/field-notes/" aria-current={current === 'field-notes' ? 'page' : undefined} class="flex min-h-11 items-center whitespace-nowrap px-1 sm:px-2 hover:text-brick aria-[current=page]:text-brick">Field Notes</a>
       <a href="/how-we-test/" class="hidden min-h-11 items-center px-2 hover:text-brick sm:flex">How we test</a>
       <a href="/about/" class="hidden min-h-11 items-center px-2 hover:text-brick sm:flex">About</a>
     </nav>

@@ -20,7 +20,8 @@ Owner's MSH monogram kit: serif wordmark, olive/cream circle monogram, tagline "
 `public/images/logo/` holds high-res renders from the owner's vector originals (2026-11-08): `mark.png` (1024px, transparent),
 `wordmark-{ink,cream}.png` (2240x240), `wordmark-tagline-{ink,cream}.png` (2240x496), `mark-{32,64,192,512}.png`,
 `apple-touch-icon.png` (180), and `/favicon.ico` (16/32/48/64). Keep these file names and aspect ratios when updating;
-the header and footer depend on them. The original kit sheet is `assets-src/logo/kit/logo-kit-sheet.png`.
+the header and footer depend on them.
+Header uses `lockup-compact-{ink,cream}.png` (2204x327): the kit wordmark + tagline with the gap tightened so the tagline stays legible at header size. It's rebuilt from `wordmark-tagline-*.png` if those change. The original kit sheet is `assets-src/logo/kit/logo-kit-sheet.png`.
 
 ## Routes (current)
 - `/`: split hero (rotating stills, video-ready), category image rail, latest calls, story band
