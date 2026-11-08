@@ -1,6 +1,6 @@
 # Men's Supply House
 
-Hands-on gear reviews: bought with my own money, used until it shows wear, judged straight.
+Hands-on gear reviews: used until it shows wear, judged straight, and clear about where each product came from.
 
 ## Run it
 ```bash

@@ -3,14 +3,14 @@ import Base from '../layouts/Base.astro';
 import CounterCall from '../components/CounterCall.astro';
 import { verdictStyle, type Verdict } from '../data/site';
 const rules = [
-  ['Paid for, not sent.', 'I buy the product. If a brand ever sends something, the review says so at the top.'],
+  ['Say where it came from.', 'Every review says how I got the product: bought, sent free by the brand, or on loan. Brands never see a review before it goes up, and free gear never changes the call.'],
   ['Used until it shows.', 'No first-impression verdicts. Every page says how many days it has been tested.'],
   ['One call.', 'Every review ends in KEEP, RETURN or DEPENDS. DEPENDS always says what it depends on.'],
   ['Show the wear.', 'Scuffs, loose pivots, cracked soles. If it failed, you see the photo.'],
 ];
 const verdicts: Verdict[] = ['KEEP', 'RETURN', 'DEPENDS'];
 ---
-<Base title="How we test" description="How Men's Supply House tests gear: bought with my own money, used until it shows wear, judged straight.">
+<Base title="How we test" description="How Men's Supply House tests gear: used hands-on until it shows wear, judged straight, and clear about where each product came from.">
   <section class="mx-auto max-w-7xl px-4 pt-4">
     <div class="rounded-[14px] bg-olive px-6 py-14 text-paper sm:px-12">
       <p class="eyebrow text-paper/70">How we test</p>

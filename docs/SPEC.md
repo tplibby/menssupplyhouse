@@ -46,6 +46,9 @@ These are raster cut-outs. Replace them with the original vector/large files whe
 - Lazy YouTube (click to load), Product + Review JSON-LD, 44px touch targets.
 
 ## Content rules
+- Never claim every product was bought. The promise is hands-on use. Each review declares its `source`:
+  `bought` (optionally `paid`, `acquired`), `sent` (free from `from`), or `loaned` (from `from`, returned).
+  The line shows under the buy button. Brands never preview reviews, and free gear never changes the call.
 - Every review photo is the reviewer's own. AI images are brand atmosphere only (hero, category tiles), never on review pages.
 - Tag unverified prices, specs and commission rates with `[VERIFY]`.
 - Voice: plain, verdict-first, short sentences.

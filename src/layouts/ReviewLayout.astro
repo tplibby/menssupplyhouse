@@ -8,7 +8,9 @@ import { catBySlug, subOf, items, itemHref, type Verdict } from '../data/site';
 
 interface Props {
   id: string; category: string; sub?: string; name: string; verdict: Verdict; callLine: string;
-  days: number; bought: string; paid: string;
+  days: number;
+  // How the product was obtained. Shown under the buy button (FTC: disclose free/loaned products).
+  source: 'bought' | 'sent' | 'loaned'; from?: string; paid?: string; acquired?: string;
   buy: { href: string; retailer: string };
   heroPhoto: string;
   entries: { day: number }[];
@@ -19,6 +21,12 @@ interface Props {
 const p = Astro.props;
 const cat = catBySlug(p.category);
 const sub = subOf(cat, p.sub);
+const when = p.acquired ? ` ${p.acquired}` : '';
+const sourceLine = {
+  bought: `I bought this${p.paid ? ` for ${p.paid}` : ''}${when ? `,${when}` : ''}.`,
+  sent: `${p.from ?? 'The brand'} sent this free. They didn't see this review before it went up and had no say in the call.`,
+  loaned: `On loan from ${p.from ?? 'the brand'}, returned after testing. They had no say in the call.`,
+}[p.source];
 const sameBin = items.filter((i) => i.category === p.category && i.id !== p.id);
 const url = new URL(Astro.url.pathname, Astro.site).toString();
 const rating = { KEEP: 5, DEPENDS: 3, RETURN: 1 }[p.verdict];
@@ -49,7 +57,7 @@ const jsonLd = {
         </div>
         <div class="grid gap-3">
           <a href={p.buy.href} rel="sponsored nofollow" class="pill bg-paper text-ink hover:bg-night hover:text-paper">Check price at {p.buy.retailer} <span aria-hidden="true">&rarr;</span></a>
-          <p class="text-[13px] text-paper/70">I bought this myself ({p.paid}, {p.bought}). Retailer links may earn a commission. <a href="/disclosure/" class="underline">Disclosure</a></p>
+          <p class="text-[13px] text-paper/70">{sourceLine} Retailer links may earn a commission. <a href="/disclosure/" class="underline">Disclosure</a></p>
         </div>
       </div>
     </div>

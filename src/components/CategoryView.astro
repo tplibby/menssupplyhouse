@@ -12,7 +12,7 @@ const title = sub ? sub.name : c.name;
 const count = (s?: Sub) => items.filter((i) => i.category === c.slug && (!s || i.sub === s.slug)).length;
 const chip = 'pill whitespace-nowrap ring-1 ring-line bg-paper hover:bg-olive hover:text-paper aria-[current=page]:bg-olive aria-[current=page]:text-paper aria-[current=page]:ring-olive';
 ---
-<Base title={`${sub ? `${sub.name} (${c.name})` : c.name} reviews`} description={`${title} I bought and used until it showed wear. ${c.notes}`}>
+<Base title={`${sub ? `${sub.name} (${c.name})` : c.name} reviews`} description={`${title} tested hands-on until it showed wear. ${c.notes}`}>
   <section class="mx-auto max-w-7xl px-4 pt-4">
     <div class="relative overflow-hidden rounded-[14px]">
       <BrandImage src={c.image} alt="" eager class="h-[300px] sm:h-[420px]" />
