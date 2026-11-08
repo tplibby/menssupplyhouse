@@ -15,6 +15,10 @@ const fullTitle = title === 'Home' ? "Men's Supply House | Bought. Used. Judged.
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {PRELAUNCH && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/images/logo/mark-64.png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2E3A2C" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <slot name="head" />
   </head>

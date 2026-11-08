@@ -7,7 +7,10 @@ const current = Astro.url.pathname.split('/')[1];
 </div>
 <header class="sticky top-0 z-30 border-b border-line bg-stone/95 backdrop-blur">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2">
-    <a href="/" class="display flex min-h-11 items-center text-[28px] sm:text-[32px]">Men&rsquo;s Supply House</a>
+    <a href="/" class="flex min-h-11 shrink-0 items-center gap-2.5 sm:gap-3" aria-label="Men's Supply House, home">
+      <img src="/images/logo/mark.png" alt="" width="44" height="44" class="h-9 w-9 sm:h-11 sm:w-11" />
+      <img src="/images/logo/wordmark-ink.png" alt="Men's Supply House" width="560" height="60" class="h-[17px] w-auto sm:h-[22px]" />
+    </a>
     <nav aria-label="Site" class="flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[.08em]">
       <a href="/field-notes/" aria-current={current === 'field-notes' ? 'page' : undefined} class="flex min-h-11 items-center px-2 hover:text-brick aria-[current=page]:text-brick">Field Notes</a>
       <a href="/how-we-test/" class="hidden min-h-11 items-center px-2 hover:text-brick sm:flex">How we test</a>

@@ -12,6 +12,13 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 - Type: Special Gothic Condensed One (display, uppercase), Geist (body).
 - Tokens: `src/styles/global.css`.
 
+## Logo
+Owner's MSH monogram kit (serif wordmark, olive/cream circle monogram, tagline "Equipped for Excellence").
+The source sheet is `assets-src/logo/kit/logo-kit-sheet.png` (1124x2048, all lockups on one image).
+Web pieces were cut from it into `public/images/logo/`: `mark.png` (258px circle, transparent), `wordmark-{ink,cream}.png`,
+`wordmark-tagline-{ink,cream}.png`, `mark-{32,64,192,512}.png`, `apple-touch-icon.png`, and `/favicon.ico`.
+These are raster cut-outs. Replace them with the original vector/large files when available (same file names).
+
 ## Routes (current)
 - `/`: split hero (rotating stills, video-ready), category image rail, latest calls, story band
 - `/{category}/`: footwear, workwear, edc, tools, gear, barware, books
