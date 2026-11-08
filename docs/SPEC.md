@@ -12,6 +12,9 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 - Type: Special Gothic Condensed One (display, uppercase), Geist (body).
 - Tokens: `src/styles/global.css`.
 
+## Tagline
+"Equipped for Excellence" (from the logo kit, 2026-11-08). It replaced "Bought. Used. Judged." site-wide.
+
 ## Logo
 Owner's MSH monogram kit (serif wordmark, olive/cream circle monogram, tagline "Equipped for Excellence").
 The source sheet is `assets-src/logo/kit/logo-kit-sheet.png` (1124x2048, all lockups on one image).
