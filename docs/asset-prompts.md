@@ -149,3 +149,25 @@ Each clip plays forward then reversed for a seamless 10 s loop: H.264 MP4 (crf 2
 ### 1080p upgrades (Minimax Hailuo 2.3, 1080, 6 s, 10 credits each)
 - hero-garage: job c06c39ca, start = hero final 479434ae, same prompt as the test. USED on the site (1626x1080, ping-pong loop, crf 26).
 - hero-trailhead: job 74fdaf8b, start = a 16:9 crop of cat-gear uploaded as media 92c6b7ff. NOT used: the crop cut too low and lost the mountains, so it's a tight tailgate close-up. The site keeps the 720p Seedance trailhead loop. The file is saved at `assets-src/videos-v4/hero-trailhead-1080.mp4`. For a redo, crop from the top of the square (keep the peaks).
+
+---
+
+## Logo explorations, 2026-11-08
+
+Model `recraft_v4_1`, `model_type: vector` (SVG output), palette locked with `colors` and `background_color` #E4E2DB. 12 concepts, 1.25 credits each.
+Files: `assets-src/logo/explore/*.svg`. These are concept sketches only. The final mark gets rebuilt by hand as SVG with the site's real font.
+
+| File | Job | Direction | Prompt summary |
+|---|---|---|---|
+| A1-wordmark-line | 1d8000f9 | Wordmark | "MEN'S SUPPLY HOUSE" one line, tall condensed bold capitals, near-black |
+| A2-wordmark-stacked | 0b959ee9 | Wordmark | Big "SUPPLY", small "MEN'S" above / "HOUSE" below between thin rules, brick-red dot |
+| A3-wordmark-tagline | 9878f10e | Wordmark | Wordmark + "BOUGHT. USED. JUDGED." under a shelf-edge rule |
+| B1-tag-olive | 24ee3142 | Inventory tag | Olive hang tag with punched hole, "MSH" monogram, "No. 001" |
+| B2-tag-tilted | d2f5fcd3 | Inventory tag | Tilted black tag, brick-red string loop, "MSH" |
+| B3-tag-lockup | ab3189a5 | Inventory tag | Small olive tag icon + wordmark, horizontal |
+| C1-seal-ring | 16199004 | Stamp seal | Ring text BOUGHT · USED · JUDGED / MEN'S SUPPLY HOUSE around "MSH", olive |
+| C2-seal-judged | 1f75ce06 | Stamp seal | Brick-red seal, "JUDGED" across the center, "EST. 2026" |
+| D1-counter-line | a256ca65 | Counter mark | "MSH" sitting on a thick olive counter/shelf line |
+| D2-app-icon | 88472175 | Counter mark | Olive rounded square, "MS / H" block monogram, red corner square |
+| D3-roofline | 3eb60b43 | Counter mark | Roofline chevron over "MSH" over a brick-red counter bar |
+| D4-ms-monogram | 41be9418 | Counter mark | Overlapping M + S with a check notch |
