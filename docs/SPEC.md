@@ -16,11 +16,11 @@ Astro 5 (static) + Tailwind 4 (`@tailwindcss/vite`). Target host: Cloudflare Pag
 "Equipped for Excellence" (from the logo kit, 2026-11-08). It replaced "Bought. Used. Judged." site-wide.
 
 ## Logo
-Owner's MSH monogram kit (serif wordmark, olive/cream circle monogram, tagline "Equipped for Excellence").
-The source sheet is `assets-src/logo/kit/logo-kit-sheet.png` (1124x2048, all lockups on one image).
-Web pieces were cut from it into `public/images/logo/`: `mark.png` (258px circle, transparent), `wordmark-{ink,cream}.png`,
-`wordmark-tagline-{ink,cream}.png`, `mark-{32,64,192,512}.png`, `apple-touch-icon.png`, and `/favicon.ico`.
-These are raster cut-outs. Replace them with the original vector/large files when available (same file names).
+Owner's MSH monogram kit: serif wordmark, olive/cream circle monogram, tagline "Equipped for Excellence".
+`public/images/logo/` holds high-res renders from the owner's vector originals (2026-11-08): `mark.png` (1024px, transparent),
+`wordmark-{ink,cream}.png` (2240x240), `wordmark-tagline-{ink,cream}.png` (2240x496), `mark-{32,64,192,512}.png`,
+`apple-touch-icon.png` (180), and `/favicon.ico` (16/32/48/64). Keep these file names and aspect ratios when updating;
+the header and footer depend on them. The original kit sheet is `assets-src/logo/kit/logo-kit-sheet.png`.
 
 ## Routes (current)
 - `/`: split hero (rotating stills, video-ready), category image rail, latest calls, story band
